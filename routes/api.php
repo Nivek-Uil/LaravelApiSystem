@@ -14,6 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::namespace('Api')->name('api.')->group(function () {
+    // 图片验证码
+    Route::middleware('throttle:10,1')->get('captcha', 'CaptchasController@store')->name('captchas.store');
+
+    //后端接口
+    Route::prefix('admin')->name('admin.')->group(function () {
+        // 登录
+        Route::post('/authorization','AuthorizationsController@store')->name('authorization.store');
+        // 刷新Token
+        Route::put('/authorization/current', 'AuthorizationsController@update')->name('authorization.update');
+        // 删除Token
+        Route::delete('/authorization/current','AuthorizationsController@destroy')->name('authorization.destroy');
+    });
+
+});
+
+//回退路由
+Route::fallback(function () {
+    return response()->json(['code' => 404, 'msg' => '请检查访问地址或请求方式是否正确'])->setStatusCode(404);
 });

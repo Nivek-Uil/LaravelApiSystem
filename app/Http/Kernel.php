@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AcceptHeader;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -39,7 +40,9 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,1',
+            // 添加请求头中间件
+            \App\Http\Middleware\AcceptHeader::class,
+            'throttle:600,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];

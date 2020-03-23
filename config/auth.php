@@ -41,11 +41,18 @@ return [
             'provider' => 'users',
         ],
 
-        'api' => [
-            'driver' => 'token',
+        'user' => [
+            'driver' => 'jwt',
             'provider' => 'users',
             'hash' => false,
         ],
+
+//        // 后台管理
+//        'admin' => [
+//            'driver' => 'jwt',
+//            'provider' => 'users',
+//            'hash' => false,
+//        ],
     ],
 
     /*
@@ -68,7 +75,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [

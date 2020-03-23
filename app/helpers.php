@@ -1,6 +1,6 @@
 <?php
+namespace App\Helpers;
 
-//对返回给前端前对数据进行格式处理
 use Illuminate\Contracts\Pagination\Paginator;
 
 function responseData($data = [], $message = '', $code = 200, $statusCode = 200)
@@ -27,7 +27,7 @@ function responseData($data = [], $message = '', $code = 200, $statusCode = 200)
     return response()->json($res)->setStatusCode($statusCode);
 }
 
-function responseMessage($message= '操作成功',$code = 200,$statusCode = 200){
+function responseMessage($message= '',$code = 400,$statusCode = 200){
     $res = [
         'code' => $code,
         'msg' => $message,

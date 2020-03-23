@@ -123,6 +123,10 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'image_captcha' => env('IMAGE_CAPTCHA',false),
+
+    'image_captcha_ttl' => env('IMAGE_CAPTCHA_TTL',60),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -158,7 +162,8 @@ return [
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
+//        Illuminate\Translation\TranslationServiceProvider::class,
+        Overtrue\LaravelLang\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
