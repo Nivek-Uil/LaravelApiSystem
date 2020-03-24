@@ -27,5 +27,8 @@ class UsersTableSeeder extends Seeder
         }
 
         DB::table('users')->insert($data);
+
+        $root = \App\Models\User::where('account','root')->first();
+        $root->assignRole('root');
     }
 }

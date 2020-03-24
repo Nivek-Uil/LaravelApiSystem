@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthorizationRequest;
+use App\models\LoginLog;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use function App\Helpers\get_child;
+use function App\Helpers\responseData;
 use function App\Helpers\responseMessage;
 
 class AuthorizationsController extends Controller
@@ -47,6 +50,16 @@ class AuthorizationsController extends Controller
             throw new AuthenticationException('用户名或密码错误');
         }
 
+        // 保存登录日志
+        LoginLog::create([
+            'user_id' => $request->user('user')->id,
+            'account' => $request->user('user')->account,
+            'ip' => $request->ip(),
+            'method' => $request->method(),
+            'user_agent' => $request->header('User-Agent'),
+            'remark' => '登录成功',
+        ]);
+
         return $this->respondWithToken($token);
     }
 
@@ -68,6 +81,27 @@ class AuthorizationsController extends Controller
     {
         auth('user')->logout();
         return response(['success'], 200);
+    }
+
+    /**
+     *
+     */
+    public function info()
+    {
+        $user = clone Auth::user('user');
+        // 个人基本信息
+        $data['info'] = $user;
+
+        $login_log = LoginLog::where(['account' => $user['account']])->orderBy('created_at','desc')->get()->toArray();
+
+        $data['info']['last_login_ip'] = $login_log[1]['ip'] ?? '';
+        $data['info']['last_login_time'] = $login_log[1]['created_at'] ?? '';
+
+        // 获取全部角色
+        $data['roles'] = Auth::user('user')->getRoleNames();
+        // 获取全部权限
+        $data['permissions'] = get_child(Auth::user('user')->getAllPermissions(), 0);
+        return responseData($data);
     }
 
     protected function respondWithToken($token)

@@ -22,10 +22,17 @@ Route::namespace('Api')->name('api.')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         // 登录
         Route::post('/authorization','AuthorizationsController@store')->name('authorization.store');
-        // 刷新Token
-        Route::put('/authorization/current', 'AuthorizationsController@update')->name('authorization.update');
-        // 删除Token
-        Route::delete('/authorization/current','AuthorizationsController@destroy')->name('authorization.destroy');
+
+        // 需要登录访问
+        Route::middleware('auth:user')->group(function (){
+            // 刷新Token
+            Route::put('/authorization/current', 'AuthorizationsController@update')->name('authorization.update');
+            // 删除Token
+            Route::delete('/authorization/current','AuthorizationsController@destroy')->name('authorization.destroy');
+            // 获取登录用户信息
+            Route::get('/authorization/info','AuthorizationsController@info')->name('authorization.info');
+        });
+
     });
 
 });

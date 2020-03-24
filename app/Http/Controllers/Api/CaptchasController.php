@@ -27,11 +27,11 @@ class CaptchasController extends Controller
         //缓存code
         Cache::put($key, ['code' => $captcha->getPhrase()], config('app.image_captcha_ttl',60));
 
-        $result = [
+        $data = [
             'captcha_key' => $key,
             'captcha_image_content' => $captcha->inline()
         ];
 
-        return responseData($result);
+        return responseData($data);
     }
 }

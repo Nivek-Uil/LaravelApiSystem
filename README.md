@@ -31,7 +31,7 @@ php artisan iseed my_table --classnameprefix=Customized
 写在 resources/lang/zh-CN/validation.php 和 resources/lang/en/validation.php attributes属性下
 ~~~
 
-命令行
+常用命令行
 -
 - 数据库迁移
 ~~~
