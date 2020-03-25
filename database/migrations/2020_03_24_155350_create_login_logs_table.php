@@ -19,7 +19,7 @@ class CreateLoginLogsTable extends Migration
             $table->string('account')->comment('登录账号');
             $table->ipAddress('ip')->comment('登录IP地址');
             $table->string('method')->comment('请求方式');
-            $table->string('user_agent')->comment('UserAgent');
+            $table->string('user_agent')->comment('UserAgent 访问工具');
             $table->string('remark')->nullable()->comment('备注');
             $table->softDeletes();
             $table->timestamps();

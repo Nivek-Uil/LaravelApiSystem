@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AcceptHeader;
+use App\Http\Middleware\RecordOperateLog;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -67,5 +68,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // 权限管理
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        // 记录操作日志
+        'operate.log' => \App\Http\Middleware\RecordOperateLog::class,
     ];
 }

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::namespace('Api')->name('api.')->group(function () {
+Route::namespace('Api')->name('api.')->middleware('operate.log')->group(function () {
     // 图片验证码
     Route::middleware('throttle:10,1')->get('captcha', 'CaptchasController@store')->name('captchas.store');
 
