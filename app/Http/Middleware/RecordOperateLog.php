@@ -17,19 +17,18 @@ class RecordOperateLog
      */
     public function handle($request, Closure $next)
     {
-//        if ($request->getMethod() !== 'GET') {
-        if (Route::currentRouteName() !== 'api.authorization'){
-            OperateLog::create([
-                'user_id' => $request->user()->id,
-                'account' => $request->user()->account,
-                'uri' => $request->getRequestUri(),
-                'host' => $request->getHost(),
-                'route_name' => Route::currentRouteName(),
-                'method' => $request->getMethod(),
-                'ip' => $request->getClientIp(),
-                'parameter' => http_build_query($request->except(['_token', '_method'])),
-                'user_agent' => $request->userAgent()
-            ]);
+        if (Route::currentRouteName() !== 'api.admin.authorization.store'){
+//            OperateLog::create([
+//                'user_id' => $request->user()->id,
+//                'account' => $request->user()->account,
+//                'uri' => $request->getRequestUri(),
+//                'host' => $request->getHost(),
+//                'route_name' => Route::currentRouteName(),
+//                'method' => $request->getMethod(),
+//                'ip' => $request->getClientIp(),
+//                'parameter' => http_build_query($request->except(['_token', '_method'])),
+//                'user_agent' => $request->userAgent()
+//            ]);
         }
 
 //        }

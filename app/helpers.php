@@ -1,5 +1,4 @@
 <?php
-namespace App\Helpers;
 
 use Illuminate\Contracts\Pagination\Paginator;
 
@@ -27,7 +26,7 @@ function responseData($data = [], $message = '', $code = 200, $statusCode = 200)
     return response()->json($res)->setStatusCode($statusCode);
 }
 
-function responseMessage($message= '',$code = 400,$statusCode = 200){
+function responseMessage($message= '',$code = 400,$statusCode = 400){
     $res = [
         'code' => $code,
         'msg' => $message,

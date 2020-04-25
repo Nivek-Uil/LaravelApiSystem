@@ -9,7 +9,6 @@ use Illuminate\Validation\ValidationException;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
-use function App\Helpers\responseMessage;
 
 class Handler extends ExceptionHandler
 {
@@ -60,11 +59,12 @@ class Handler extends ExceptionHandler
         if ($request->expectsJson()) {
             if ($exception instanceof AuthenticationException) {
                 if ($exception->getMessage() === 'Unauthenticated.') {
-                    $mag = '未登录或登录过期';
+//                    $msg = '未登录或登录过期';
+                    $msg = '身份校验失败，请登录重试！';
                 } else {
-                    $mag = $exception->getMessage();
+                    $msg = $exception->getMessage();
                 }
-                return responseMessage($mag, 401, 401);
+                return responseMessage($msg, 401, 401);
             }
             // 没有权限的异常处理
             if ($exception instanceof UnauthorizedException) {

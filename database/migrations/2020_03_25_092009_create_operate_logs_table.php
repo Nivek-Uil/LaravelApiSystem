@@ -17,7 +17,7 @@ class CreateOperateLogsTable extends Migration
             $table->id();
             $table->integer('user_id')->comment('用户ID');
             $table->string('account')->comment('操作账号');
-            $table->string('uri')->comment('请求地址');
+            $table->text('uri')->comment('请求地址');
             $table->string('host')->comment('host');
             $table->string('route_name')->comment('路由名称');
             $table->string('method')->comment('请求方式：GET、POST、PUT、DELETE、HEAD');

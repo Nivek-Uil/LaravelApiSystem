@@ -35,6 +35,7 @@ Route::namespace('Api')->name('api.')->middleware('operate.log')->group(function
             // 权限管理
             Route::middleware('permission:system.permission')->name('permission.')->group(function () {
                 Route::get('/permission', 'PermissionsController@index')->name('list');
+                Route::put('/permission/{permission}', 'PermissionsController@update')->name('update');
             });
 
             // 角色管理

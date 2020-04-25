@@ -5,6 +5,15 @@ namespace App\Models;
 
 class Permission extends \Spatie\Permission\Models\Permission
 {
+
+    protected $guarded = [
+        'id',
+        'guard_name',
+        'updated_at',
+        'created_at',
+        'deleted_at'
+    ];
+
     protected $hidden = [
         'updated_at',
         'deleted_at',

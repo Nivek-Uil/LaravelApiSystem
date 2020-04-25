@@ -11,9 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use function App\Helpers\get_child;
-use function App\Helpers\responseData;
-use function App\Helpers\responseMessage;
 
 class AuthorizationsController extends Controller
 {
@@ -75,12 +72,12 @@ class AuthorizationsController extends Controller
 
     /**
      * 删除token（退出登录）
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|object
      */
     public function destroy()
     {
         auth('user')->logout();
-        return response(['success'], 200);
+        return responseMessage('退出成功',200);
     }
 
     /**
@@ -101,12 +98,13 @@ class AuthorizationsController extends Controller
         $data['roles'] = Auth::user('user')->getRoleNames();
         // 获取全部权限
         $data['permissions'] = get_child(Auth::user('user')->getAllPermissions(), 0);
+
         return responseData($data);
     }
 
     protected function respondWithToken($token)
     {
-        return response()->json([
+        return responseData([
             'access_token' => $token,
             'token_type' => 'Bearer',
             'expires_in' => auth('user')->factory()->getTTL() * 60

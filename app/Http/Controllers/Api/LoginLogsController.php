@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\LoginLog;
 use Illuminate\Http\Request;
-use function App\Helpers\responseData;
 
 class LoginLogsController extends Controller
 {

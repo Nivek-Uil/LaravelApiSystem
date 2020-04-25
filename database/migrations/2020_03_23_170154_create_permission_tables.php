@@ -24,6 +24,10 @@ class CreatePermissionTables extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('display_name');
+            $table->string('url')->nullable()->comment('前端页面地址');
+            $table->string('type')->default(0)->comment('类型 0-普通权限 1-前端菜单');
+            $table->string('icon')->nullable();
+            $table->tinyInteger('sort')->default(0);
             $table->bigInteger('parent_id')->default(0);
             $table->string('guard_name');
            // $table->softDeletes();
