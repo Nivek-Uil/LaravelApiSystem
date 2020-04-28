@@ -52,3 +52,16 @@ function get_child($data, $pid)
     return $tree; //返回新数组
 }
 
+/**
+ * php截取指定两个字符之间字符串，默认字符集为utf-8
+ * @param string $begin  开始字符串
+ * @param string $end    结束字符串
+ * @param string $str    需要截取的字符串
+ * @return string
+ */
+function cutStr($begin,$end,$str){
+    $b = mb_strpos($str,$begin) + mb_strlen($begin);
+    $e = mb_strpos($str,$end) - $b;
+
+    return mb_substr($str,$b,$e);
+}

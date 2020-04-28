@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Serialize;
+use DateTimeInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +12,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles,Serialize;
 
     /**
      * The attributes that are mass assignable.
@@ -30,17 +32,8 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token', 'deleted_at', 'status'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'created_at' => 'datetime:Y-m-d H:i:s',
-    ];
-
     protected $guard_name = 'web';
+
 
     /**
      * @inheritDoc

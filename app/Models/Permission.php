@@ -3,8 +3,12 @@
 namespace App\Models;
 
 
+use App\Models\Traits\Serialize;
+use DateTimeInterface;
+
 class Permission extends \Spatie\Permission\Models\Permission
 {
+    use Serialize;
 
     protected $guarded = [
         'id',
@@ -19,9 +23,5 @@ class Permission extends \Spatie\Permission\Models\Permission
         'deleted_at',
         'pivot'
     ];
-    protected $casts = [
-        'created_at' => 'datetime:Y-m-d H:i:s',
-        'updated_at' => 'datetime:Y-m-d H:i:s',
-        'deleted_at' => 'datetime:Y-m-d H:i:s',
-    ];
+
 }
